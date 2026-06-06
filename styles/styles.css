@@ -1,0 +1,92 @@
+* {
+    margin: 0px;
+    /* background-color: #ffe9d6; */
+}
+header {
+    display: flex;
+    align-items: center;      /* vertically center items */
+    justify-content: center;  /* center the group horizontally */
+    gap: 33rem;                /* space between elements */
+    min-height: 80px;
+    position: absolute;
+    width: 100%;
+    /* z-index: 1000; */
+}
+
+.topnav {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 22px;
+}
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+   
+}
+nav ul li {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+nav ul li a {
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.cart-container {
+    background-color: #ff9a3d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 80px;
+    border-radius: 20px;
+    
+}
+.cart-container img {
+    width: 2rem;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+#cart-count {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+}
+#hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffe9d6;
+    justify-items: center;
+
+}
+.content {
+    display: flex;
+    align-items: center;
+    gap: 9rem;
+    justify-content: center;
+    margin-top: 70px;
+  
+}
+#shopName {
+    font-family:Impact;
+    font-size: 6rem;
+    font-weight: 400;
+    color: #ff9a3d;
+    width: 30%;
+}
+#hero-button {
+    height: 4rem;
+    width: 250px;
+    font-size: 25px;
+    border-radius: 15px;
+    background-color: #ff7a00;
+    border: 0px;
+    color: white;
+    margin-bottom: 30px;
+}
