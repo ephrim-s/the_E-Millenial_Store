@@ -1,12 +1,14 @@
 
 const cartModal = document.getElementById("cartModal");
 const cartIcon = document.getElementById("cartImg");
-const closeBtn = document.getElementById("close-cart");
+const closeBtn = document.getElementById("closeBtn");
 
 cartIcon.addEventListener("click", () => {
     cartModal.style.display = "flex";
 });
-
+closeBtn.addEventListener("click", () => {
+    cartModal.style.display = "none";
+});
 console.log(cartIcon);
 console.log(cartModal);
 console.log(closeBtn);
