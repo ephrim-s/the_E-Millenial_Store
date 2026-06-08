@@ -1,3 +1,5 @@
+@import url('cart_modal.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -18,9 +20,11 @@ header {
     flex-wrap: wrap;
     background-color: #ffe9d6;
     gap: 10px;
+    
 }
 .logo img {
     width: 100px;
+    margin-left: 50px;
     
 }
 
@@ -33,7 +37,8 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: 22px;
+    color: #333;
 }
 
 /* cart */
@@ -46,6 +51,11 @@ nav ul li a {
     padding-left: 5px;
     padding-right: 10px;
     padding-top: 5px;
+    margin-right: 50px;
+}
+.cart-container:hover {
+    background-color: #ffcd9e;
+    cursor: pointer;
 }
 .cart-container img {
     width: 45px;
@@ -79,12 +89,11 @@ nav ul li a {
     font-family: Impact, sans-serif;
     font-size: clamp(2rem, 6vw, 6rem);
     font-weight: bolder;
-    color: #ff9a3d;
+    color: #ff7a00;
     width: auto;
     max-width: 500px;
 }
 
-/* HERO IMAGE */
 .content img {
     width: min(400px, 90%);
     height: auto;
@@ -95,7 +104,7 @@ nav ul li a {
     width: min(250px, 80%);
     font-size: 1.2rem;
     border-radius: 15px;
-    background-color: #ff7a00;
+    background-color: #ff9a3d;
     border: none;
     color: white;
     margin-top: 20px;
@@ -127,6 +136,12 @@ nav ul li a {
     text-align: center;
     padding: 50px 20px;
 }
+#shop-title {
+    font-size: clamp(1.5rem, 5vw, 5rem);
+    font-family: Impact, sans-serif;
+    color: #333;
+    margin-bottom: 40px;
+}
 
 .product-grid {
     display: grid;
@@ -134,7 +149,7 @@ nav ul li a {
     gap: 20px;
 }
 
-
+/* TABLET */
 @media (max-width: 992px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -162,6 +177,7 @@ nav ul li a {
     }
 }
 
+
 /* PRODUCT CARD */
 .product-card {
     display: flex;
@@ -174,13 +190,14 @@ nav ul li a {
 
 .product-card img {
     width: 100%;
-    height: 250px;
+    /* height: 250px; */
     object-fit: contain;
 }
 
 .product-card h3 {
     margin: 10px 0;
-    font-size: 1.2rem;
+    font-size: 2.2rem;
+    
 }
 
 .product-card button {
@@ -191,6 +208,8 @@ nav ul li a {
     padding: 10px;
     font-size: 18px;
     border-radius: 5px;
+    width: 60%;
+    align-self: center;
 }
 .product-card button:hover {
     background-color: #ffcd9e;
@@ -211,4 +230,52 @@ footer {
 
 footer p {
     font-size: 16px;
+}
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-content {
+    background: white;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-cart {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.cart-table {
+    width: 100%;
+}
+
+.remove-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
 }
