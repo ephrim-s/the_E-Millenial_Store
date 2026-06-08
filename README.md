@@ -34,4 +34,4 @@ The E-Millenial Store is a modern landing page for a hypothetical e-commerce sit
 
 ## Author
 
-Designed and created by Samuel Ephrim :Student @ One Million Coders.
+Designed and created by Samuel Ephrim : Student @ One Million Coders.
