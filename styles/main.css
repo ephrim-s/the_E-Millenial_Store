@@ -273,6 +273,11 @@ footer p {
 .cart-table {
     width: 100%;
 }
+.cart-table thead {
+    background-color: #ff9a3d;
+    color: white;
+    text-align: left;
+}
 
 .remove-btn {
     background-color: #e74c3c;
@@ -316,4 +321,8 @@ footer p {
     width: 150px;
     height: 40px;
     border-radius: 15px;
+}
+.qty-btn {
+    width: 20px;
+    margin: 0 5px;
 }
