@@ -42,45 +42,8 @@
             </div>
         </section>
         <section id="shop">
-            <h1 id="shop-title">OUR GADGETS</h1>
-            
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="images/product1.png" alt="product 1">
-                    <h3>SAMSUNG TV</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/product2.png" alt="product 1">
-                    <h3>PIXEL 4a TV</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/product3.png" alt="product 1">
-                    <h3>PS 5</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/product4.png" alt="product 1">
-                    <h3>MACBOOK AIR</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/product5.png" alt="product 1">
-                    <h3>APPLE WATCH</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/product6.png" alt="product 1">
-                    <h3>AIR POD</h3>
-                    <button>ADD TO CART</button>
-                </div>
-
+            <h1 id="shop-title">OUR GADGETS</h1>            
+            <div id="productGrid" class="product-grid">
             </div>
         </section>
 
@@ -123,18 +86,24 @@
                 placeholder="Full Name"
                 required
             >
+            <br>
+            <p id="nameError"></p>
             <input
                 type="email"
                 id="customerEmail"
                 placeholder="Email Address"
                 required
             >
+            <br>
+            <p id="emailError"></p>
             <input
                 type="tel"
                 id="customerPhone"
                 placeholder="Phone Number"
                 required
             >
+            <br>
+            <p id="telError"></p>
         </form>
         <div class="cart-buttons">
             <button id="continueShopping">
