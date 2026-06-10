@@ -29,7 +29,9 @@
                 <div id="shopName">THE E-<br>MILLENIAL <br>STORE</div>
                 <img src="images/heroImage.png" alt="hero image" style="width: 40%;">
             </div>
+            <a href="#shop">
             <button id="hero-button">SHOP NOW</button>
+            </a>
         </section>
         <section id="about">
             <div id="about-div">
@@ -54,12 +56,6 @@
     </footer>
 <div id="cartModal" class="cart-modal">
     <div class="cart-content">
-
-        <div class="cart-header">
-            <h2>Shopping Cart</h2>
-            <span id="closeBtn" class="close-cart">&times;</span>
-        </div>
-
         
         <table class="cart-table">
             <thead>
@@ -67,55 +63,57 @@
                     <th>S/N</th>
                     <th>Product</th>
                     <th>Price</th>
-                    <th>Quantity</th>
-                    
+                    <th>Quantity</th>                    
                 </tr>
             </thead>
             <tbody id="cartItems">
                 
             </tbody>                
         </table>
-        <div id="cart-total">
-            <h3>Total: $<span id="cartTotal">0.00</span></h3>
 
-        </div>
+        
         <form id="customerForm">
-            <h3>Customer Information</h3>
-            
+                        
             <input
-                type="text"
-                id="customerName"
-                placeholder="Full Name"
-                required
+            type="text"
+            id="customerName"
+            placeholder="Full Name"
+            required
             >
             <br>
             <p id="nameError"></p>
             <input
-                type="email"
-                id="customerEmail"
-                placeholder="Email Address"
-                required
+            type="email"
+            id="customerEmail"
+            placeholder="Email Address"
+            required
             >
             <br>
             <p id="emailError"></p>
             <input
-                type="tel"
-                id="customerPhone"
-                placeholder="Phone Number"
-                required
+            type="tel"
+            id="customerPhone"
+            placeholder="Phone Number"
+            required
             >
             <br>
             <p id="telError"></p>
+            
+            <div id="cart-total">
+                <h3>Total Amount to be Paid </h3>
+                <h2>$<span id="cartTotal">0.00</span></h2>
+            </div>
+            
+            <div class="cart-buttons">
+                <button id="continueShopping">
+                    Continue Shopping
+                </button>
+                
+                <button type="submit" id="checkout">
+                    Checkout
+                </button>
+            </div>        
         </form>
-        <div class="cart-buttons">
-            <button id="continueShopping">
-                Continue Shopping
-            </button>
-
-            <button id="checkout">
-                Checkout
-            </button>
-        </div>        
     </div>
 </div>
 </body>

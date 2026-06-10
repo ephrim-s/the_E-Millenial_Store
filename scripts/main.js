@@ -2,10 +2,11 @@ const cart = [];
 
 const cartModal = document.getElementById("cartModal");
 const cartIcon = document.getElementById("cartImg");
-const closeBtn = document.getElementById("closeBtn");
 const productGrid = document.getElementById("productGrid");
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
+const continueShoping = document.getElementById("continueShopping");
+const checkOut = document.getElementById("checkout");
 
 const products = [{
         index: 1,
@@ -75,10 +76,10 @@ cartIcon.addEventListener("click", () => {
     cartModal.style.display = "flex";
 });
 
-closeBtn.addEventListener("click", () => {
+
+continueShoping.addEventListener("click", () => {
     cartModal.style.display = "none";
 });
-
 
 buttons.forEach(button => {
     button.addEventListener("click", () => {
@@ -186,3 +187,51 @@ const decreaseQty = (index) => {
 
     renderCart();
 };
+
+const customerForm = document.getElementById("customerForm");
+customerForm.addEventListener("submit", checkout);
+
+const checkout = (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("customerName").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    const total = cart.reduce((sum, item) => {
+        return sum + (item.price * item.quantity);
+    }, 0);
+
+    const order = {
+        customer: {
+            name: name,
+            email: email,
+            phone: phone
+        },
+        items: [...cart],
+        total,
+        orderDate: new Date().toLocaleDateString()
+    };
+    localStorage.setItem(
+        "latestOrder", 
+        JSON.stringify(order)
+    );
+    alert(
+        `Thank you ${name}!\n\nYour order total is $${total}`
+    );
+
+    renderCart();
+    customerForm.reset();
+    cartModal.style.display = "none";
+
+}; 
