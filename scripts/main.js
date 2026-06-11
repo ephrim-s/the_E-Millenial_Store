@@ -108,11 +108,21 @@ const renderCart = () => {
             <td>$${item.price}</td>
 
             <td>
-                <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
+                <button class="qty-btn" 
+                style="background-color: #ff7a00; 
+                color: white;
+                border: none;
+                border-radius: 4px;" 
+                onclick="decreaseQty(${index})">-</button>
 
                 ${item.quantity}
 
-                <button class="qty-btn" onclick="increaseQty(${index})">+</button>
+                <button class="qty-btn" 
+                style="background-color: #ff7a00; 
+                color: white;
+                border: none;
+                border-radius: 4px;"" 
+                onclick="increaseQty(${index})">+</button>
             </td>
 
             <td>
@@ -189,49 +199,69 @@ const decreaseQty = (index) => {
 };
 
 const customerForm = document.getElementById("customerForm");
-customerForm.addEventListener("submit", checkout);
+customerForm.addEventListener("submit", payWithPaystack);
 
-const checkout = (event) => {
-    event.preventDefault();
+const getCartTotal = () => {
+    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+};
 
-    const name = document.getElementById("customerName").value.trim();
-    const email = document.getElementById("customerEmail").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
+const resetCart = () => {
+    cart.length = 0;
+    cartItems.innerHTML = "";
+    cartTotal.textContent = "0.00";
+    document.getElementById("cart-count").textContent = "0";
+};
 
-    if (!name || !email || !phone) {
-        alert("Please fill in all fields.");
-        return;
-    }
-    
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-    }
+function payWithPaystack(event) {
+  event.preventDefault();
 
-    const total = cart.reduce((sum, item) => {
-        return sum + (item.price * item.quantity);
-    }, 0);
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
 
-    const order = {
-        customer: {
-            name: name,
-            email: email,
-            phone: phone
+  const customerName = document.getElementById("customerName").value.trim();
+  const customerEmail = document.getElementById("customerEmail").value.trim();
+  const customerPhone = document.getElementById("customerPhone").value.trim();
+
+  if (!customerName || !customerEmail || !customerPhone) {
+    alert("Please fill in all customer details before checkout.");
+    return;
+  }
+
+  const totalAmount = getCartTotal();
+
+  const handler = PaystackPop.setup({
+    key: 'pk_test_6e3d2fe7483dd85f858e167dfadb0fc087f97534',
+    email: customerEmail,
+    amount: totalAmount * 100,
+    currency: 'GHS',
+    ref: 'EXE_ECOMMERCE_' + Math.floor((Math.random() * 1000000000) + 1),
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Customer Name",
+          variable_name: "customer_name",
+          value: customerName
         },
-        items: [...cart],
-        total,
-        orderDate: new Date().toLocaleDateString()
-    };
-    localStorage.setItem(
-        "latestOrder", 
-        JSON.stringify(order)
-    );
-    alert(
-        `Thank you ${name}!\n\nYour order total is $${total}`
-    );
+        {
+          display_name: "Phone Number",
+          variable_name: "phone_number",
+          value: customerPhone
+        }
+      ]
+    },
+    callback: function(response) {
+      console.log('Payment successful. Reference: ' + response.reference);
+      resetCart();
+      customerForm.reset();
+      cartModal.style.display = "none";
+      alert('Payment successful! Reference: ' + response.reference);
+    },
+    onClose: function() {
+      alert('Payment window closed by user.');
+    }
+  });
 
-    renderCart();
-    customerForm.reset();
-    cartModal.style.display = "none";
-
-}; 
+  handler.openIframe();
+};
