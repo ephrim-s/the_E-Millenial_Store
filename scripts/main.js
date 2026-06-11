@@ -59,16 +59,24 @@ products.forEach(product => {
     card.classList.add("product-card");
 
     card.innerHTML = `
+    <div class="image-container">
         <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p class="price">$${product.price}</p>
-        <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}"
-        >
+        <p class="price">
+            <span>Price:</span><br><br>
+            $${product.price.toLocaleString()}
+        </p>
+    </div>
+    <h3>${product.name}</h3>
+    <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}"
+    >
         ADD TO CART
         </button>
     `;
+
+
     productGrid.appendChild(card);
 });
+
 
 const buttons = document.querySelectorAll(".add-to-cart");
 
