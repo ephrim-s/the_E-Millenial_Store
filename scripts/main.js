@@ -63,15 +63,17 @@ products.forEach(product => {
         <img src="${product.image}" alt="${product.name}">
         <p class="price">
             <span>Price:</span><br><br>
-            $${product.price.toLocaleString()}
+            GH₵ ${product.price.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}
         </p>
     </div>
     <h3>${product.name}</h3>
-    <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}"
-    >
+    <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">
         ADD TO CART
-        </button>
-    `;
+    </button>
+`;
 
 
     productGrid.appendChild(card);
@@ -113,7 +115,10 @@ const renderCart = () => {
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${item.name}</td>
-            <td>$${item.price}</td>
+            <td>GH${item.price.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}</td>
 
             <td>
                 <button class="qty-btn" 
@@ -144,7 +149,10 @@ const renderCart = () => {
         cartItems.appendChild(row);
     });
 
-    cartTotal.textContent = total;
+    cartTotal.textContent = total.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+});
 
     updateCartCount();
 };
@@ -213,6 +221,18 @@ const getCartTotal = () => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 };
 
+const formatReceiptItems = () => {
+    return cart.map(item => {
+        const lineTotal = item.price * item.quantity;
+
+        return {
+            display_name: `${item.name} (Qty: ${item.quantity})`,
+            variable_name: `item_${item.name.toLowerCase()}`,
+            value: `${item.quantity} x GHS ${item.price.toLocaleString()} = GHS ${lineTotal.toLocaleString()}`
+        };
+    });
+};
+
 const resetCart = () => {
     cart.length = 0;
     cartItems.innerHTML = "";
@@ -232,12 +252,14 @@ function payWithPaystack(event) {
   const customerEmail = document.getElementById("customerEmail").value.trim();
   const customerPhone = document.getElementById("customerPhone").value.trim();
 
+
   if (!customerName || !customerEmail || !customerPhone) {
     alert("Please fill in all customer details before checkout.");
     return;
   }
-
+    
   const totalAmount = getCartTotal();
+  const receiptItems = formatReceiptItems();
 
   const handler = PaystackPop.setup({
     key: 'pk_test_6e3d2fe7483dd85f858e167dfadb0fc087f97534',
@@ -256,7 +278,21 @@ function payWithPaystack(event) {
           display_name: "Phone Number",
           variable_name: "phone_number",
           value: customerPhone
-        }
+        },
+        {
+          display_name: "Items Purchased",
+          variable_name: "items_purchased",
+          value: cart.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ')
+        },
+        {
+          display_name: "Order Total",
+          variable_name: "order_total",
+          value: `GHS ${totalAmount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}`
+        },
+        ...receiptItems
       ]
     },
     callback: function(response) {
@@ -264,7 +300,7 @@ function payWithPaystack(event) {
       resetCart();
       customerForm.reset();
       cartModal.style.display = "none";
-      alert('Payment successful! Reference: ' + response.reference);
+      alert('Payment successful! Reference: ' + response.reference + '\nThank you for your purchase, ' + customerName + '!' + '\n' + receiptItems.map(item => item.value).join('\n'));
     },
     onClose: function() {
       alert('Payment window closed by user.');
